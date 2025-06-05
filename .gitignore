@@ -1,0 +1,61 @@
+# IDEs
+.idea/
+.vscode/
+
+# Ambientes virtuais
+venv/
+.env
+.env.*
+
+# Bytecode Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Arquivos de log e caches
+*.log
+*.sqlite3
+*.db
+*.pid
+*.bak
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Alembic compilados
+alembic/__pycache__/
+alembic/versions/*.pyc
+
+# Test output
+test.db
+coverage.xml
+nosetests.xml
+pytestdebug.log
+
+# Mypy, Ruff, Black
+.mypy_cache/
+.dmypy.json
+ruff_cache/
+.cache/
+__pypackages__/
+
+# Docker
+*.pid
+*.tar
+docker-compose.override.yml
+
+# Reports and build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Mac/Linux
+.DS_Store
+*.swp
+*.swo
+
+# VSCode settings (if shared, remove these lines)
+.settings.json
