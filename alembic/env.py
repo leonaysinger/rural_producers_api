@@ -11,6 +11,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from app.core.config import get_settings
 from app.db.base import Base
 
+from app.domain.models.user import User
 
 config = context.config
 

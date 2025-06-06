@@ -1,0 +1,22 @@
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+exclude = ["alembic", "venv",  "tests/conftest.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "UP", "RUF", "C90"]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+exclude = ["alembic", "venv"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+exclude = '''
+/(
+    alembic
+  | venv
+  | tests/conftest.py
+)/
+'''

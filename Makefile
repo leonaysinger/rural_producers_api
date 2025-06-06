@@ -35,7 +35,7 @@ tdb-up:
 tdb-down:
 	docker compose -f $(DOCKER_COMPOSE_TEST) down -v
 
-tb-run:
+tdb-run:
 	pytest --cov=app --cov-report=term-missing
 
 docker-kill-em-all:

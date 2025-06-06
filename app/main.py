@@ -1,12 +1,13 @@
-import os
 import logging.config
+import os
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
+from app.api.v1 import user
 from app.api.v1.routes import router as api_router
-from app.core.logging_config import LOGGING_CONFIG
 from app.core.config import get_settings
+from app.core.logging_config import LOGGING_CONFIG
 
 log_dir = os.path.join(os.path.dirname(__file__), "..", "logs")
 os.makedirs(log_dir, exist_ok=True)
@@ -22,3 +23,4 @@ settings = get_settings()
 app = FastAPI(title="Rural Producers API", version="1.0.0", debug=settings.debug)
 
 app.include_router(api_router, prefix="/api/v1")
+app.include_router(user.router, prefix="/api")

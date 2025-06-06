@@ -3,14 +3,11 @@
 
 LOG_LEVEL = "INFO"
 
-LOG_FORMAT = (
-    "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-)
+LOG_FORMAT = "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
 
 LOGGING_CONFIG = {
     "version": 1,
     "disable_existing_loggers": False,
-
     "formatters": {
         "default": {
             "format": LOG_FORMAT,
@@ -20,7 +17,6 @@ LOGGING_CONFIG = {
             "format": "%(asctime)s %(levelname)s %(name)s %(message)s",
         },
     },
-
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
@@ -32,7 +28,6 @@ LOGGING_CONFIG = {
             "formatter": "default",
         },
     },
-
     "root": {
         "handlers": ["console", "file"],
         "level": LOG_LEVEL,
