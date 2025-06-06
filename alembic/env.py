@@ -14,6 +14,7 @@ from app.db.base import Base
 from app.domain.models.user import User
 from app.domain.models.user_token import UserToken
 from app.domain.models.crop import Crop
+from app.domain.models.season import Season
 
 config = context.config
 

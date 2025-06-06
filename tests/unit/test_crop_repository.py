@@ -9,13 +9,64 @@ def test_create_crop():
     mock_session = MagicMock()
     repo = CropRepository()
 
-    crop_data = CropCreate(name="Milho")
+    crop_data = CropCreate(name="Maize")
     crop = repo.create(mock_session, crop_data)
 
-    assert crop.name == "Milho"
+    assert crop.name == "Maize"
     mock_session.add.assert_called_once_with(crop)
     mock_session.commit.assert_called_once()
     mock_session.refresh.assert_called_once_with(crop)
+
+
+def test_get_by_id_crop_found():
+    mock_session = MagicMock()
+    repo = CropRepository()
+
+    crop_id = uuid4()
+    expected_crop = Crop(id=crop_id, name="Milho")
+
+    query_mock = MagicMock()
+    query_mock.filter.return_value.first.return_value = expected_crop
+    mock_session.query.return_value = query_mock
+
+    result = repo.get_by_id(mock_session, crop_id)
+
+    assert result == expected_crop
+    mock_session.query.assert_called_once_with(Crop)
+    query_mock.filter.assert_called_once()
+
+
+def test_get_by_id_crop_not_found():
+    mock_session = MagicMock()
+    repo = CropRepository()
+
+    crop_id = uuid4()
+    query_mock = MagicMock()
+    query_mock.filter.return_value.first.return_value = None
+    mock_session.query.return_value = query_mock
+
+    result = repo.get_by_id(mock_session, crop_id)
+
+    assert result is None
+    mock_session.query.assert_called_once_with(Crop)
+    query_mock.filter.assert_called_once()
+
+
+def test_get_all_crops():
+    mock_session = MagicMock()
+    repo = CropRepository()
+
+    expected_crops = [
+        Crop(id=uuid4(), name="Tomato"),
+        Crop(id=uuid4(), name="Lettuce")
+    ]
+    mock_session.query.return_value.all.return_value = expected_crops
+
+    result = repo.get_all(mock_session)
+
+    assert result == expected_crops
+    mock_session.query.assert_called_once_with(Crop)
+    mock_session.query.return_value.all.assert_called_once()
 
 
 def test_update_crop_success():
