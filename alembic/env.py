@@ -12,6 +12,7 @@ from app.core.config import get_settings
 from app.db.base import Base
 
 from app.domain.models.user import User
+from app.domain.models.user_token import UserToken
 
 config = context.config
 
