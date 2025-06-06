@@ -60,3 +60,20 @@ def clean_tables_once():
 @pytest.fixture
 def mock_user_model():
     return mock_user()
+
+
+@pytest.fixture
+def valid_cpf():
+    return '482.163.270-56'
+
+@pytest.fixture
+def invalid_cpf():
+    return '481.162.270-56'
+
+@pytest.fixture
+def valid_cnpj():
+    return '72.249.686/0001-60'
+
+@pytest.fixture
+def invalid_cnpj():
+    return '72.249.622/0001-60'

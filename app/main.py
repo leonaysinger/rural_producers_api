@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from app.api.v1 import user, auth, crop, season
+from app.api.v1 import user, auth, crop, season, rural_producer
 from app.api.v1.routes import router as api_router
 from app.core.config import get_settings
 from app.core.logging_config import LOGGING_CONFIG
@@ -27,3 +27,4 @@ app.include_router(user.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")
 app.include_router(crop.router, prefix="/api")
 app.include_router(season.router, prefix="/api")
+app.include_router(rural_producer.router, prefix="/api")

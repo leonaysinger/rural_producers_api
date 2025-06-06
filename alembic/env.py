@@ -15,6 +15,7 @@ from app.domain.models.user import User
 from app.domain.models.user_token import UserToken
 from app.domain.models.crop import Crop
 from app.domain.models.season import Season
+from app.domain.models.rural_producer import RuralProducer
 
 config = context.config
 
