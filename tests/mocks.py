@@ -1,6 +1,8 @@
 from datetime import datetime
 from uuid import uuid4
 
+import pytest
+
 from app.domain.models.season import Season
 from app.domain.models.user import User
 

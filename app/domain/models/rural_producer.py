@@ -2,6 +2,7 @@ import uuid
 
 from sqlalchemy import CheckConstraint, Column, DateTime, String
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from app.db.base import Base
@@ -18,6 +19,8 @@ class RuralProducer(Base):
     updated_at = Column(DateTime(timezone=True),
                         server_default=func.now(),
                         onupdate=func.now())
+
+    properties = relationship("RuralProperty", back_populates="producer", cascade="all, delete-orphan")
 
     __table_args__ = (
         CheckConstraint("document_type IN ('CPF', 'CNPJ')", name="chk_document_type"),

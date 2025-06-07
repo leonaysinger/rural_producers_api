@@ -44,10 +44,10 @@ def test_get_producer_not_found(client: TestClient):
 def test_update_rural_producer(client: TestClient):
     create = client.post("/api/producers", json={"name": "Juca3", "document_type": "CPF",
                                                  "document": "361.255.050-06"})
-    crop_id = create.json()["id"]
+    rural_producer_id = create.json()["id"]
 
     response = client.put(
-        f"/api/producers/{crop_id}",
+        f"/api/producers/{rural_producer_id}",
         json={"name": "Juca test"}
     )
     assert response.status_code == 200

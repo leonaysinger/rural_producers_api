@@ -1,4 +1,6 @@
 import os
+from decimal import Decimal
+from uuid import uuid4
 
 import pytest
 from fastapi.testclient import TestClient
@@ -9,6 +11,8 @@ from alembic import command
 from alembic.config import Config
 from app.core.dependencies import get_db
 from app.db.base import Base
+from app.domain.models.rural_property import RuralProperty
+from app.domain.schemas.rural_property import RuralPropertyCreate
 from app.main import app
 from tests.mocks import mock_user
 
@@ -77,3 +81,21 @@ def valid_cnpj():
 @pytest.fixture
 def invalid_cnpj():
     return '72.249.622/0001-60'
+
+@pytest.fixture
+def rural_property_mock():
+    return RuralPropertyCreate(name="Test",
+                               city="Florianópolis",
+                               state="SC",
+                               cep="00000000",
+                               number="21",
+                               producer_id = uuid4(),
+                               description="test",
+                               total_area=Decimal("2000.0"),
+                               farming_area=Decimal("1000"),
+                               vegetation_area=Decimal("1000"))
+
+@pytest.fixture
+def rural_property_1():
+    return RuralProperty(name="Fazenda 1",
+                         )
