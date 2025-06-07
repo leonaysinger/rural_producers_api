@@ -28,6 +28,52 @@ def test_create_rural_property(client: TestClient):
     assert body["name"] == "Fazenda Boa Esperança"
     assert "id" in body
 
+def test_create_rural_property_with_crops(client: TestClient):
+    response = client.post(
+        "/api/producers",
+        json={"name": "Juca", "document_type": "CPF", "document": "261.787.640-30"}
+    )
+    producer = response.json()
+
+    response = client.post(
+        "/api/crops",
+        json={"name": "Maize"}
+    )
+    crop = response.json()
+
+    response = client.post(
+        "/api/seasons",
+        json={"name": "winter", "year": 2025}
+    )
+    season = response.json()
+
+    response = client.post(
+        "/api/properties",
+        json={
+            "producer_id": producer["id"],
+            "name": "Fazenda Experimental",
+            "city": "Luziânia",
+            "state": "GO",
+            "cep": "72800-000",
+            "number": "999",
+            "description": "Área de teste com plantio rotativo",
+            "total_area": 150.0,
+            "farming_area": 100.0,
+            "vegetation_area": 50.0,
+            "property_crops": [
+                {
+                    "season_id": season["id"],
+                    "crop_id": crop["id"]
+                }
+            ]
+        }
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["name"] == "Fazenda Experimental"
+    assert "id" in body
+
 
 def test_get_property_by_id(client: TestClient):
     response = client.post(

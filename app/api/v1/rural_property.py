@@ -5,6 +5,7 @@ from fastapi import APIRouter, HTTPException, status
 from app.core.dependencies import DBSession
 from app.domain.schemas.rural_property import RuralPropertyRead, RuralPropertyCreate, RuralPropertyUpdate
 from app.repositories.rural_property import RuralPropertyRepository
+from app.services.rural_property_service import RuralPropertyService
 
 router = APIRouter(prefix="/properties", tags=["Rural Properties"])
 
@@ -13,7 +14,7 @@ router = APIRouter(prefix="/properties", tags=["Rural Properties"])
 def create_rural_property(
     property_in: RuralPropertyCreate, db: DBSession
 ) -> RuralPropertyRead:
-    repo = RuralPropertyRepository()
+    repo = RuralPropertyService()
     return repo.create(db, property_in)
 
 

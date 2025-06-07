@@ -29,4 +29,6 @@ class RuralProperty(Base):
     )
 
     producer = relationship("RuralProducer", back_populates="properties")
+    crops = relationship("PropertyCrop", back_populates="property", cascade="all, delete-orphan")
+
 

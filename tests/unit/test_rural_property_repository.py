@@ -1,12 +1,8 @@
 from unittest.mock import MagicMock
 from uuid import uuid4
 
-import pytest
-from pydantic import ValidationError
-
-from app.domain.models.rural_producer import RuralProducer
 from app.domain.models.rural_property import RuralProperty
-from app.domain.schemas.rural_property import RuralPropertyCreate, RuralPropertyUpdate
+from app.domain.schemas.rural_property import RuralPropertyUpdate
 from app.repositories.rural_property import RuralPropertyRepository
 
 
@@ -14,14 +10,14 @@ def test_create_rural_property(rural_property_mock):
     mock_session = MagicMock()
     repo = RuralPropertyRepository()
 
-    property = repo.create(mock_session, rural_property_mock)
+    result = repo.create(mock_session, rural_property_mock)
 
-    assert property.name == "Test"
-    assert property.city == "Florianópolis"
-    assert property.cep == "00000000"
-    mock_session.add.assert_called_once_with(property)
-    mock_session.commit.assert_called_once()
-    mock_session.refresh.assert_called_once_with(property)
+    assert result.name == "Test"
+    assert result.city == "Florianópolis"
+    assert result.cep == "00000000"
+
+    mock_session.add.assert_called_once_with(result)
+    mock_session.refresh.assert_called_once_with(result)
 
 def test_update_rural_property_success(rural_property_mock):
     mock_session = MagicMock()

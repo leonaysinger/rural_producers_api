@@ -12,9 +12,14 @@ class RuralPropertyRepository(BaseRepository):
         super().__init__(RuralProperty)
 
     def create(self, db: Session, property_in: RuralPropertyCreate) -> RuralProperty:
-        rural_property = RuralProperty(**property_in.model_dump())
+        if isinstance(property_in, dict):
+            data = property_in
+        else:
+            data = property_in.model_dump(exclude={"property_crops"})
+
+        rural_property = RuralProperty(**data)
         db.add(rural_property)
-        db.commit()
+        db.flush()
         db.refresh(rural_property)
         return rural_property
 

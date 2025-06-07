@@ -1,9 +1,11 @@
 from datetime import datetime
 from decimal import Decimal
+from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, Field, model_validator
 
+from app.domain.schemas.property_crop import PropertyCropCreate
 from app.utils.validators import validate_property_areas
 
 
@@ -33,6 +35,7 @@ class RuralPropertyCreate(RuralPropertyBase):
     total_area: Decimal | None = None
     farming_area: Decimal | None = None
     vegetation_area: Decimal | None = None
+    property_crops: Optional[list[PropertyCropCreate]] = []
 
     @model_validator(mode="after")
     def validate_areas(self):

@@ -93,7 +93,8 @@ def rural_property_mock():
                                description="test",
                                total_area=Decimal("2000.0"),
                                farming_area=Decimal("1000"),
-                               vegetation_area=Decimal("1000"))
+                               vegetation_area=Decimal("1000"),
+                               property_crops=[])
 
 @pytest.fixture
 def rural_property_1():
