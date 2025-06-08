@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from app.services.dashboard import get_summary, get_farms_by_state, get_farms_by_crop, get_land_usage
+from app.services.report import get_summary, get_farms_by_state, get_farms_by_crop, get_land_usage
 
 
 def test_get_summary():

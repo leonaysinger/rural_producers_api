@@ -15,7 +15,7 @@ class RuralPropertyRepository(BaseRepository):
         if isinstance(property_in, dict):
             data = property_in
         else:
-            data = property_in.model_dump(exclude={"property_crops"})
+            data = property_in.model_dump(exclude={"crops"})
 
         rural_property = RuralProperty(**data)
         db.add(rural_property)

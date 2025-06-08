@@ -20,3 +20,5 @@ class PropertyCropBaseUpdate(PropertyCropBase):
 
 class PropertyCropBaseRead(PropertyCropBase):
     id: UUID
+    season_id: UUID
+    crop_id: UUID

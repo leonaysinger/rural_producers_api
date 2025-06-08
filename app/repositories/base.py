@@ -1,8 +1,8 @@
 # app/infrastructure/repositories/base.py
 
-from typing import TypeVar
+from typing import TypeVar, Optional, Sequence
 
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload, Load
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 
 T = TypeVar("T")
@@ -12,8 +12,12 @@ class BaseRepository:
     def __init__(self, model: type[DeclarativeMeta]):
         self.model = model
 
-    def get_all(self, db: Session) -> list[T]:
-        return db.query(self.model).all()
+    def get_all(self, db: Session, joins: list = None) -> list[T]:
+        query = db.query(self.model)
+        if joins:
+            for join in joins:
+                query = query.options(join)
+        return query.all()
 
     def get_by_id(self, db: Session, id: str):
         return db.query(self.model).filter(self.model.id == id).first()

@@ -37,6 +37,8 @@ class AuthService:
         )
 
         return {
+            "user_name": db_user.name,
+            "user_email": db_user.email,
             "access_token": access_token,
             "refresh_token": refresh_token
         }
