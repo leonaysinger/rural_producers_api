@@ -2,13 +2,14 @@
 
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 
 from app.core.dependencies import DBSession
+from app.core.security import get_current_user
 from app.domain.schemas.crop import CropRead, CropCreate, CropUpdate
 from app.repositories.crop import CropRepository
 
-router = APIRouter(prefix="/crops")
+router = APIRouter(prefix="/crops", dependencies=[Depends(get_current_user)])
 
 
 @router.post("/", response_model=CropRead, status_code=status.HTTP_201_CREATED)

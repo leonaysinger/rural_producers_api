@@ -2,13 +2,14 @@
 
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 
 from app.core.dependencies import DBSession
+from app.core.security import get_current_user
 from app.domain.schemas.season import SeasonCreate, SeasonRead, SeasonUpdate
 from app.repositories.season import SeasonRepository
 
-router = APIRouter(prefix='/seasons')
+router = APIRouter(prefix='/seasons', dependencies=[Depends(get_current_user)])
 
 
 @router.post("/", response_model=SeasonRead, status_code=status.HTTP_201_CREATED)

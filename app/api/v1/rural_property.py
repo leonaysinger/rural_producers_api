@@ -1,16 +1,17 @@
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy.orm import joinedload
 
 from app.core.dependencies import DBSession
+from app.core.security import get_current_user
 from app.domain.models.property_crop import PropertyCrop
 from app.domain.models.rural_property import RuralProperty
 from app.domain.schemas.rural_property import RuralPropertyRead, RuralPropertyCreate, RuralPropertyUpdate
 from app.repositories.rural_property import RuralPropertyRepository
 from app.services.rural_property_service import RuralPropertyService
 
-router = APIRouter(prefix="/properties", tags=["Rural Properties"])
+router = APIRouter(prefix="/properties", tags=["Rural Properties"], dependencies=[Depends(get_current_user)])
 
 
 @router.post("/", response_model=RuralPropertyRead, status_code=status.HTTP_201_CREATED)

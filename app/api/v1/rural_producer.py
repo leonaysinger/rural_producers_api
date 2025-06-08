@@ -1,13 +1,14 @@
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 
 from app.core.dependencies import DBSession
+from app.core.security import get_current_user
 from app.domain.schemas.rural_producer import RuralProducerRead, RuralProducerCreate, RuralProducerUpdate
 
 from app.repositories.rural_producer import RuralProducerRepository
 
-router = APIRouter(prefix="/producers", tags=["Rural Producers"])
+router = APIRouter(prefix="/producers", tags=["Rural Producers"], dependencies=[Depends(get_current_user)])
 
 
 @router.post("/", response_model=RuralProducerRead)

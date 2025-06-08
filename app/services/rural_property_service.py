@@ -5,6 +5,7 @@ from starlette.exceptions import HTTPException
 
 from app.domain.models.rural_property import RuralProperty
 from app.domain.schemas.rural_property import RuralPropertyCreate, RuralPropertyUpdate
+from app.logger import logger
 from app.repositories.propety_crops import PropertyCropRepository
 from app.repositories.rural_producer import RuralProducerRepository
 from app.repositories.rural_property import RuralPropertyRepository
@@ -20,6 +21,7 @@ class RuralPropertyService:
         try:
             producer = self.producer_repo.get_by_id(db, data.producer_id)
             if not producer:
+                logger.error(f"Producer not found when get producer")
                 raise HTTPException(status_code=404, detail="Producer not found")
 
             property_data = data.model_dump(exclude={"crops"})
@@ -34,6 +36,7 @@ class RuralPropertyService:
             return rural_property
 
         except Exception as e:
+            logger.error(f"Error when create rural property. {e}!")
             db.rollback()
             raise
 
@@ -58,5 +61,6 @@ class RuralPropertyService:
             return rural_property
 
         except Exception as e:
+            logger.error(f"Error when update rural property. {e}!")
             db.rollback()
             raise e
