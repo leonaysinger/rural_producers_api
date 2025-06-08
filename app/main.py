@@ -41,7 +41,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 origins = [
     "http://localhost:5173",
-    # "https://meusite.com.br"
+    "https://rural-producers-web.vercel.app"
 ]
 
 app.add_middleware(
