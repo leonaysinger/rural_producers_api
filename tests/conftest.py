@@ -10,6 +10,7 @@ from sqlalchemy.orm import sessionmaker
 from alembic import command
 from alembic.config import Config
 from app.core.dependencies import get_db
+from app.core.security import get_current_user
 from app.db.base import Base
 from app.domain.models.rural_property import RuralProperty
 from app.domain.schemas.rural_property import RuralPropertyCreate
@@ -84,6 +85,14 @@ def valid_cnpj():
 @pytest.fixture
 def invalid_cnpj():
     return '72.249.622/0001-60'
+
+
+@pytest.fixture(autouse=True)
+def override_get_current_user():
+    app.dependency_overrides[get_current_user] = lambda: {"user_id": "fake-user"}
+    yield
+    app.dependency_overrides.clear()
+
 
 @pytest.fixture
 def rural_property_mock():

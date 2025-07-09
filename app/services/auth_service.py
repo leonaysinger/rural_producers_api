@@ -22,11 +22,13 @@ class AuthService:
         user_repo = UserRepository()
         db_user = user_repo.get_by_email(db, credentials.email)
 
+
         if not db_user or not bcrypt.verify(credentials.password, db_user.password_hash):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid credentials"
             )
+
 
         payload = {"sub": str(db_user.id), "email": db_user.email}
 
