@@ -25,7 +25,7 @@ def list_crops(db: DBSession) -> list[CropRead]:
 
 
 @router.get("/{crop_id}", response_model=CropRead)
-def get_crop(crop_id: UUID, db: DBSession) -> CropRead:
+def get_crop(crop_id: str, db: DBSession) -> CropRead:
     repo = CropRepository()
     crop = repo.get_by_id(db, crop_id)
     if not crop:

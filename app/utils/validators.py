@@ -25,7 +25,7 @@ def validate_cnpj(cnpj: str) -> bool:
         return False
     return True
 
-def validate_property_areas(total: Decimal | None, farming: Decimal | None, vegetation: Decimal | None):
+def validate_property_areas(total: Decimal, farming: Decimal, vegetation: Decimal):
     if all(area is not None for area in [total, farming, vegetation]):
         if farming + vegetation > total:
             raise ValueError("Sum of areas exceeds the property's total area.")

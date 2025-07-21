@@ -56,3 +56,6 @@ format:
 check:
 	ruff check .
 	black --check .
+
+mypy-check:
+	mypy .
